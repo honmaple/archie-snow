@@ -1,6 +1,6 @@
-{% macro list_title(pages, tag_name=false) %}
+{% macro list_title(pages, tag_name=false) export %}
     {% if tag_name %}
-        <h1>Entries tagged - "{{ term.name }}"</h1>
+        <h1>Entries tagged - "{{ term.Name }}"</h1>
     {% else %}
         <h1 class="page-title">All articles</h1>
     {% endif %}
@@ -8,54 +8,49 @@
     <ul class="posts">
         {% for page in pages %}
             <li class="post">
-                <a href="{{ page.permalink }}">{{ page.title }}</a>
-                <span class="meta">{{ page.date | date(format="%Y-%m-%d") }}</span>
+                <a href="{{ page.Permalink }}">{{ page.Title }}</a>
+                <span class="meta">{{ page.Date | date:"2006-01-02" }}</span>
             </li>
         {% endfor %}
     </ul>
-{% endmacro list_title %}
+{% endmacro %}
 
-{% macro list_posts(pages, extra) %}
+{% macro list_posts(pages, extra) export %}
     <ul>
     {%- for page in pages %}
-        {%- if page.draft %}
-            {% continue %}
-        {% endif -%}
-
         <section class="list-item">
             <h1 class="title">
-                <a href={{ page.permalink }}>{{page.title}}</a>
+                <a href={{ page.Permalink }}>{{page.Title}}</a>
             </h1>
 
-            <time>{{ page.date | date(format="%Y-%m-%d") }}</time>
-            <span>| {{ page.reading_time }} {{ config.extra.translations[lang][0].read_time }}</span>
-            {% if page.extra.author %}
-                <span>| {{extra.translations[lang][0].posted_by }} <a href="{{ page.extra.author.social }}" target="_blank">{{ page.extra.author.name }}</a></span>
+            <time>{{ page.Date | date:"2006-01-02" }}</time>
+            {% if page.Meta.author %}
+                <span>| post by <a href="{{ page.Meta.author }}" target="_blank">{{ page.Meta.author }}</a></span>
             {% endif %}
 
             <br />
             <div class="description">
                 {% if page.description %}
                     {{ page.description }}
-                {% elif page.summary %}
-                    {{ page.summary }}&hellip;
+                {% elif page.Summary %}
+                    {{ page.Summary | safe }}&hellip;
                 {% else %}
                     {% set hide_read_more = true %}
                 {% endif %}
             </div>
 
             {% if not hide_read_more %}
-                <a class="readmore" href={{ page.permalink }}>{{ extra.translations[lang][0].show_more }}</a>
+                <a class="readmore" href={{ page.Permalink }}>{{ _("show more") }}</a>
             {% endif %}
         </section>
 
     {% endfor -%}
     </ul>
-{% endmacro list_posts %}
+{% endmacro %}
 
 
-{% macro tags(page, short=false) %}
-    {%- if page.taxonomies and page.taxonomies.tags %}
+{% macro tags(page, short=false) export %}
+    {%- if page.Meta.tags %}
         <span class="post-tags-inline">
             {%- if short %}
                 ::
@@ -64,48 +59,48 @@
                 :: tags:&nbsp;
                 {%- set sep = "&nbsp;" -%}
             {% endif -%}
-            {%- for tag in page.taxonomies.tags %}
-                <a class="post-tag" href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}">#{{ tag }}</a>
+            {%- for tag in page.Meta.tags %}
+                <a class="post-tag" href="">#{{ tag }}</a>
                 {%- if not loop.last %}{{ sep | safe }}{% endif -%}
             {% endfor -%}
         </span>
     {% endif -%}
-{% endmacro tags %}
+{% endmacro %}
 
-{% macro content(page, extra) %}
+{% macro content(page, extra) export %}
 <main>
     <article>
         <div class="title">
-            <h1 class="title">{{ page.title }}</h1>
+            <h1 class="title">{{ page.Title }}</h1>
             <div class="meta">
-                {% if page.extra.author %}
-                    {{extra.translations[lang][0].posted_by }} <a href="{{ page.extra.author.social }}" target="_blank">{{ page.extra.author.name }}</a>
+                {% if page.Meta.author %}
+                    posted by <a href="" target="_blank">{{ page.Meta.author }}</a>
                 {% endif %}
-                {{ extra.translations[lang][0].posted_on }} {{ page.date | date(format="%Y-%m-%d") }}
+                posted on {{ page.Date | date:"2006-01-02" }}
 
-                {% if page.draft %}
+                {% if page.Meta.draft %}
                     <span class="draft-label">DRAFT</span>
                 {% endif %}
             </div>
         </div>
 
-        {% if page.extra.tldr %}
+        {% if page.Meta.extra.tldr %}
             <div class="tldr">
                 <strong>tl;dr:</strong>
-                {{ page.extra.tldr }}
+                {{ page.Meta.extra.tldr }}
             </div>
         {% endif %}
 
         <section class="body">
-            {{ page.content | safe }}
+            {{ page.Content | safe }}
         </section>
 
-        {% if page.taxonomies and page.taxonomies.tags %}
+        {% if page.Meta.tags %}
             <div class="post-tags">
                 <nav class="nav tags">
                     <ul class="tags">
-                        {% for tag in page.taxonomies.tags %}
-                            <li><a href={{ get_taxonomy_url(kind='tags', name=tag) | safe }}>{{ tag }}</a></li>
+                        {% for tag in page.Meta.tags %}
+                            <li><a href="{{ get_taxonomy_url('tags', tag) }}">{{ tag }}</a></li>
                         {% endfor %}
                     </ul>
                 </nav>
@@ -114,4 +109,4 @@
 
     </article>
 </main>
-{% endmacro content %}
+{% endmacro %}

@@ -1,11 +1,9 @@
-+++
-title = "中文内容"
-date = "2022-05-12"
-description = "中文内容排版演示，这里是文章的描述信息"
-
-[taxonomies]
-tags = ["CN", "showcase"]
-+++
+---
+title: "中文内容"
+date: "2022-05-12"
+tags: ["CN", "showcase"]
+description: "中文内容排版演示，这里是文章的描述信息"
+---
 
 > [《故乡》](https://baike.baidu.com/item/%E6%95%85%E4%B9%A1/2679148) -- 鲁迅
 

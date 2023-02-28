@@ -1,14 +1,12 @@
-+++
-title = "Hello archie"
-date = "2022-05-14"
-description = "See how to config your archie theme"
-
-[taxonomies]
-tags = ["showcase"]
-
-[extra]
-author = { name = "XXXMRG", social= "https://github.com/XXXMrG" }
-+++
+---
+title: "Hello archie"
+date: "2022-05-14"
+tags: ["showcase"]
+description: "See how to config your archie theme"
+author:
+ name: "XXXMRG"
+ social: "https://github.com/XXXMrG" 
+---
 
 ## Demo
 

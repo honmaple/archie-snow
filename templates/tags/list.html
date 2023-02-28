@@ -2,14 +2,14 @@
 
 
 {% block main_content %}
-    <h1 class="page-title">{{ config.extra.translations[lang][0].all_tags }}</h1>
+    <h1 class="page-title">{{ _("All Tags") }}</h1>
 
     <div class="tag-cloud">
         <ul class="tags">
             {% for term in terms %}
             <li>
-                <a href="{{ term.permalink | safe }}">
-                    {{ term.name }} ({{ term.pages | length }} post{{ term.pages | length | pluralize }})
+                <a href="{{ term.Permalink | safe }}">
+                    {{ term.Name }} ({{ term.List | length }} post{{ term.List | length | pluralize }})
                 </a>
             </li>
             {% endfor %}

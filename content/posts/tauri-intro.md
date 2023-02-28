@@ -1,11 +1,9 @@
-+++
-title = "浅谈 tauri"
-date = 2022-02-18
-description = "本文旨在介绍 tauri 的相关背景知识、性能及可用性表现、以及一点架构设计思想。"
-
-[taxonomies]
-tags = ["FE", "Rust"]
-+++
+---
+title: "浅谈 tauri"
+date: 2022-02-18
+tags: ["FE", "Rust"]
+description: "本文旨在介绍 tauri 的相关背景知识、性能及可用性表现、以及一点架构设计思想。"
+---
 
 本文旨在介绍 tauri 的相关背景知识、性能及可用性表现、以及一点架构设计思想。
 

@@ -1,18 +1,17 @@
 <footer>
   <div style="display:flex">
-    {% for social in config.extra.social %}
+    {% for social in config.params.extra.social %}
         <a class="soc" href={{ social.url }} title={{ social.name }}>
             <i data-feather={{ social.icon }}></i>
         </a>
     {% endfor %}
   </div>
   <div class="footer-info">
-    {{ now() | date(format="%Y") }} © {{ config.extra.copyright }} | <a
-      href="https://github.com/XXXMrG/archie-zola">Archie-Zola Theme</a>
+     {% now "2006" fake %} © {{ config.params.extra.copyright }} | <a href="https://github.com/honmaple/archie-snow">Archie-Snow Theme</a>
   </div>
 </footer>
 
-{% if config.extra.social %}
+{% if config.params.extra.social %}
 <script>
     feather.replace();
 </script>

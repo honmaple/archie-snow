@@ -1,5 +1,6 @@
-{% import "macros/macros.html" as post_macros %}
+{% import "macros/macros.html" list_posts,list_title,content as post_content %}
 
+{% set params = config.params %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,64 +8,64 @@
 
     {% if current_path == "/" %}
     <title>
-        {{ config.title | default(value="Home") }}
+        {{ config.site.title | default:"Home" }}
     </title>
     {% else %}
     <title>
         {% if page.title %} {{ page.title }}
-        {% elif config.title %} {{ config.title }}
+        {% elif config.site.title %} {{ config.site.title }}
         {% else %}Post{% endif %}
     </title>
     {% endif %}
 
-    {% if config.extra.favicon %}
-         <link rel="icon" type="image/png" href={{ config.extra.favicon }} />
+    {% if params.extra.favicon %}
+         <link rel="icon" type="image/png" href={{ params.extra.favicon }} />
     {% endif %}
 
     {# TODO: rss, og:image #}
 
     {# opengraph, twitter_cards #}
 
-    {% if config.extra.ga %}
+    {% if params.extra.ga %}
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{config.extra.ga}}"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{params.extra.ga}}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', '{{config.extra.ga}}');
+            gtag('config', '{{params.extra.ga}}');
         </script>
     {% endif %}
 
     {# if need icon, load feather.js #}
-    {% if config.extra.social and config.extra.useCDN | default(value=false) %}
+    {% if params.extra.social and params.extra.useCDN | default:false %}
         <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    {% elif config.extra.social or config.extra.mode == "toggle" %}
-        <script src={{ get_url(path="js/feather.min.js") }}></script>
+    {% elif params.extra.social or params.extra.mode == "toggle" %}
+        <script src="{{ config.site.url }}/static/js/feather.min.js"></script>
     {% endif %}
 
 
-    {% if config.extra.useCDN | default(value=false) %}
+    {% if params.extra.useCDN | default:false %}
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
     {% else %}
-        <link href={{ get_url(path="css/fonts.css") }} rel="stylesheet" />
+        <link href="{{ config.site.url }}/static/css/fonts.css" rel="stylesheet" />
     {% endif %}
 
-    <link rel="stylesheet" type="text/css" media="screen" href={{ get_url(path="css/main.css") }} />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ config.site.url }}/static/css/main.css" />
 
-    {% if config.extra.mode == "auto" or config.extra.mode == "dark" or config.extra.mode == "toggle" %}
+    {% if params.extra.mode == "auto" or params.extra.mode == "dark" or params.extra.mode == "toggle" %}
         <link
             rel="stylesheet"
             id="darkModeStyle"
             type="text/css"
-            href={{ get_url(path="css/dark.css") }}
-            {% if config.extra.mode == "auto" %}
+            href="{{ config.site.url }}/static/css/dark.css"
+            {% if params.extra.mode == "auto" %}
                 media="(prefers-color-scheme: dark)"
             {% endif %}
-            {% if config.extra.mode == "toggle" %}
+            {% if params.extra.mode == "toggle" %}
                 disabled
             {% endif %}
         />

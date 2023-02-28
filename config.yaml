@@ -1,0 +1,60 @@
+site:
+  url: "http://127.0.0.1:8000"
+  title: "archie-snow"
+  sutitle: "A snow theme forked from https://github.com/XXXMrG/archie-zola"
+  language: "zh"
+
+mode.publish:
+  site:
+    url: "https://honmaple.me"
+
+sections:
+  _default:
+    path: "/{section:slug}/index.html"
+    templates: "posts.html"
+    page_template: "page.html"
+
+taxonomies:
+  tags:
+    template: "tags/list.html"
+    term_template: "tags/single.html"
+
+output_dir: "output"
+content_dir: "content"
+
+static_paths:
+  "@theme/static/imgs": "imgs/"
+  "@theme/static/screenshot": "screenshot/"
+
+theme:
+  name: "."
+
+hooks:
+  - "i18n"
+  - "assets"
+  - "encrypt"
+  - "shortcode"
+
+params.extra:
+  mode: "toggle"
+  copyright: "honmaple"
+
+params.extra.menus:
+  - name: "Home"
+    url: "/"
+  - name: "All posts"
+    url: "/posts"
+  - name: "Tags"
+    url: "/tags"
+  - name: "About"
+    url: "/about"
+params.extra.social:
+  - name: "Github"
+    icon: "github"
+    url: "https://github.com/honmaple/archie-snow"
+  - name: "Twitter"
+    icon: "twitter"
+    url: "https://github.com/honmaple/archie-snow"
+  - name: "Gitlab"
+    icon: "gitlab"
+    url: "https://github.com/honmaple/archie-snow"
